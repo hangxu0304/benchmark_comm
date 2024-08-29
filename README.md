@@ -1,10 +1,15 @@
 # benchmark_comm
 
-Single-node
+## Single-node
 ```
 torchrun --standalone --nnodes=1 --nproc_per_node=8 test_dist.py --dtype bf16 -a all
 ```
-multi-node
+## multi-node
+Maybe necessary, modify it acoording to your hardware config
+```
+export NCCL_SOCKET_IFNAME=bond0
+export NCCL_IB_HCA=mlx
+```
 ```
 node1:
 python -m torch.distributed.launch --nnodes=2 --nproc_per_node=8 --node-rank=0 --master_addr={master_node_ip} --master_port=29500 test_dist.py --dtype bf16 -a all
