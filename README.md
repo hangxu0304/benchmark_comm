@@ -4,6 +4,13 @@ Single-node
 ```
 torchrun --standalone --nnodes=1 --nproc_per_node=8 test_dist.py --dtype bf16 -a all
 ```
+multi-node
+```
+node1:
+python -m torch.distributed.launch --nnodes=2 --nproc_per_node=8 --node-rank=0 --master_addr={master_node_ip} --master_port=29500 test_dist.py --dtype bf16 -a all
+node2:
+python -m torch.distributed.launch --nnodes=2 --nproc_per_node=8 --node-rank=1 --master_addr={master_node_ip} --master_port=29500 test_dist.py --dtype bf16 -a all
+```
 
 Output:
 ```
